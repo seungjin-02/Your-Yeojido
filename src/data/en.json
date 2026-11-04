@@ -1841,5 +1841,17 @@
   "전체 세부 지역의 10% 이상 방문": "Visit at least 10% of all local areas",
   "호주 지도의 사분의 일": "A quarter of your Australian map",
   "전체 세부 지역의 25% 이상 방문": "Visit at least 25% of all local areas",
-  "기준점": "Base"
+  "기준점": "Base",
+  "방문일이 올바르지 않아요.": "Invalid visit date.",
+  "어떤 달에, 어떤 곳에서 추억을 남겼나요?": "Which months and places hold your memories?",
+  "선택한 연도의 여행 요약": "Travel summary for the selected year",
+  "여행의 조각들": "Pieces of your journey",
+  "연도 선택": "Choose a year",
+  "여행을 기록한 달": "Months with memories",
+  "가장 많이 기록한 달": "Most recorded month",
+  "아직 기록이 없어요": "No records yet",
+  "전체 누적 기록": "Your all-time travels",
+  "입력한 여행일을 기준으로 월별 기록을 모았어요.": "Monthly records based on the travel dates you entered.",
+  "월별 방문 기록": "Monthly visit records",
+  "가장 기록이 많은 달": "Most recorded month"
 }

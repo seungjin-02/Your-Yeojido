@@ -3,9 +3,9 @@ import source from '../public/data/regions.json';
 import geoText from '../public/data/regions.geojson?raw';
 import {createPlaces} from './content';
 import {createTravelGroups} from './travelGroups';
-import {emptyData,parseBackup,DATASET,KEY,LEGACY_STATE_IDS} from './store';
+import {emptyData,parseBackup,DATASET,KEY,LEGACY_STATE_IDS,validDay} from './store';
 import {getAchievements,mapRegionColors} from './travelProfile';
-import {getTravelStats} from './travelStats';
+import {getTravelStats,recordedYears,preferredStatsYear} from './travelStats';
 import {DEFAULT_BASE,distanceKm,validBase,baseFromRegion,homeBaseLabel} from './homeBase';
 import {setLanguage,t,localizeRegion} from './i18n';
 import {baseFromAddress,parseAddressResults,searchAustralianAddresses} from './geocoding';
@@ -69,4 +69,11 @@ describe('Expanded travel stamps',()=>{
  it('requires distinct regions for Perth and state stamps; broad legacy visits earn no regional stamps',()=>{const d={...emptyData(),records:[record(),{...record(),id:'repeat'},{...record(fremantle.id),id:'fremantle'},{...record('au:WA'),id:'legacy'}]};const badges=getAchievements(d,regions);expect(badges.find(b=>b.id==='perth-harbours')!.achieved).toBe(true);expect(badges.find(b=>b.id==='perth-coast')!.current).toBe(2);expect(badges.find(b=>b.id==='wa-5')!.current).toBe(2);expect(getAchievements({...emptyData(),records:[record('au:WA')]},regions).find(b=>b.id==='perth-first')!.achieved).toBe(false)});
  it('counts consecutive dates across month boundaries without counting duplicates or unknown dates',()=>{const make=(day:string|null,id:string)=>({...record(),id,visitedOn:day});const d={...emptyData(),records:[make('2025-12-31','one'),make('2026-01-01','two'),make('2026-01-01','duplicate'),make('2026-01-02','three'),make(null,'unknown')]};expect(getAchievements(d,regions).find(b=>b.id==='consecutive-3')!.achieved).toBe(true);d.records=d.records.filter(r=>r.id!=='two'&&r.id!=='duplicate');expect(getAchievements(d,regions).find(b=>b.id==='consecutive-2')!.achieved).toBe(false)});
  it('rounds area coverage thresholds up and recalculates long-note progress after deletion',()=>{const badges=getAchievements(emptyData(),regions);expect(badges.find(b=>b.id==='coverage-10')!.target).toBe(57);expect(badges.find(b=>b.id==='coverage-25')!.target).toBe(142);const d={...emptyData(),records:[0,1,2].map(i=>({...record(),id:String(i),note:'a'.repeat(100)}))};expect(getAchievements(d,regions).find(b=>b.id==='long-notes-3')!.achieved).toBe(true);d.records.pop();expect(getAchievements(d,regions).find(b=>b.id==='long-notes-3')!.achieved).toBe(false)});
+});
+
+describe('Unrestricted visit dates and monthly statistics',()=>{
+ it('accepts real past and future calendar dates while rejecting impossible days',()=>{for(const day of ['1800-01-01','2030-12-31','2400-02-29','9999-12-31'])expect(validDay(day)).toBe(true);for(const day of ['2030-02-29','2032-02-30','2030-13-01','0000-01-01','2030-1-1'])expect(validDay(day)).toBe(false)});
+ it('round trips future visits in saves and backup imports',()=>{const d={...emptyData(),records:[{...record(),visitedOn:'2040-02-29'}]};expect(parseBackup(JSON.stringify(d),regions,places).records[0].visitedOn).toBe('2040-02-29');expect(()=>parseBackup(JSON.stringify({...d,records:[{...record(),visitedOn:'2041-02-29'}]}),regions,places)).toThrow()});
+ it('lists all recorded years and separates monthly totals for past and future years',()=>{const d={...emptyData(),records:[{...record(),id:'old',visitedOn:'2010-02-03'},{...record(),id:'future',visitedOn:'2040-02-29'},{...record(),id:'december',visitedOn:'2040-12-31'},{...record(),id:'unknown',visitedOn:null},{...record('au:WA'),id:'legacy',visitedOn:'2050-01-01'}]};expect(recordedYears(d,regions)).toEqual([2040,2010]);expect(getTravelStats(d,regions,2010).months[1].count).toBe(1);const stats=getTravelStats(d,regions,2040);expect(stats.months[1].count).toBe(1);expect(stats.months[11].count).toBe(1);expect(stats.yearRecordCount).toBe(2);expect(stats.unknownDates).toBe(1);expect(stats.unresolved).toBe(1)});
+ it('opens the year of the most recently updated dated visit, not always this year or the furthest future year',()=>{const d={...emptyData(),records:[{...record(),id:'far',visitedOn:'2099-01-01',updatedAt:'2026-01-01T00:00:00Z'},{...record(),id:'recent',visitedOn:'2010-04-15',updatedAt:'2026-11-04T01:00:00Z'}]};expect(preferredStatsYear(d,regions,2026)).toBe(2010);expect(preferredStatsYear(emptyData(),regions,2026)).toBe(2026)});
 });

@@ -9,4 +9,5 @@ import './atlas.css';
 import './mobile.css';
 import './detailed.css';
 import './journey.css';
+import './stats.css';
 createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);

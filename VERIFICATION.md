@@ -23,3 +23,9 @@ The original Korea-specific test suites still use Korean region IDs and fixtures
 - `scripts/journey-smoke.cjs`: passed at the same four sizes using populated visit and classification data. Verified travel postcards, personal notes, search, add-record action, 77 stamps, earned-status filtering, sorting, translated achievement copy and preservation of original notes.
 - Achievement tests verify 24 new definitions, distinct regions rather than duplicate visits, exclusion of broad legacy states, consecutive dates across year boundaries, coverage thresholds and recalculation after deletions.
 - Images and the base location are separate: opening/reloading shows the national map; the photo marker stays at the default Perth coordinates until the user saves another reference point.
+
+## Date and statistics update
+
+- 22 current Australia tests pass, including unrestricted valid past/future dates, leap-date rejection, backup round trips, recorded year enumeration, monthly totals and the most-recently-updated-record default year.
+- The date/statistics browser flow passes at 320×568, 390×844, 667×375 and 1440×900. It creates a 2040 visit and a 2010 visit, changes the year selector, edits the future visit into 2099 and verifies persistence after reload and Korean/English switching.
+- Reference marker size is reduced while opacity and label contrast remain strong. Panning bounds use longitudes 88–180 (centred around Australia at 134°E); the national initial view and saved reference coordinates are retained.

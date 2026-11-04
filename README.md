@@ -58,3 +58,11 @@ PLAYWRIGHT_MODULE=/tmp/yeojido-browser/node_modules/playwright node scripts/jour
 ```
 
 Both cover 320×568, 390×844, 667×375 and 1440×900. The detailed address provider is mocked in the deterministic browser checks to cover successful results, unavailable service and country filtering; these checks do not establish live Nominatim availability. Typing local region names sends no requests; only the explicit detailed-search button sends the entered query to that service. Results are approximate and should be checked before saving. Region metadata, manual coordinates and existing saved bases remain usable without that service.
+
+## Dates and yearly statistics
+
+Visit dates accept valid past and future calendar dates; there is no today-based maximum. The year selector includes all years represented by dated local-area records and the current year. Opening statistics starts with the most recently updated dated record's year. Adding or editing a dated record while statistics is open selects that record's year automatically. The monthly chart and annual highlights follow the selected year; the four cumulative metrics are explicitly labelled as all-time totals. Unknown dates and unresolved legacy state records stay outside monthly local-area totals.
+
+`PLAYWRIGHT_MODULE=/tmp/yeojido-browser/node_modules/playwright node scripts/date-stats-smoke.cjs` checks future/past saves, leap dates, year selection, editing, reload persistence and translated month labels at four viewport sizes.
+
+The reference-point toolbar retains its location subtitle and uses the shorter “기준점” label. The photo marker keeps its strong contrast at a compact size (52px on phones, 56px on desktop). Map panning is bounded around Australia, rather than exposing most of the world to the west. Boundary attribution is available from the More menu rather than as a map overlay.

@@ -16,7 +16,7 @@ export const upsertCatalogPlace=(data:UserData,place:Place):UserData=>({...data,
 export const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 const fail=(m:string):never=>{throw new Error(m)};
 const obj=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
-export function validDay(v:string){if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return false;const d=new Date(v+'T00:00:00Z');return Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===v&&v<=today()}
+export function validDay(v:string){if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return false;const d=new Date(v+'T00:00:00Z');return Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===v&&Number(v.slice(0,4))>=1}
 export function validateData(value:unknown,regions:Region[],places:Place[]):UserData{
   if(!obj(value))return fail(t("올바른 백업 문서가 아니에요."));
   if(![1,2,3].includes(value.schemaVersion as number))return fail(t("지원하지 않는 저장 형식 버전이에요."));
@@ -44,7 +44,7 @@ export function validateData(value:unknown,regions:Region[],places:Place[]):User
     if(!['coffee','waves','landmark','tree','mountain','store'].includes(p.icon as string))return fail(t("명소 아이콘이 올바르지 않아요."));
     if(typeof p.sourceUrl!=='string'||p.sourceUrl.length>2000)return fail(t("출처 주소가 올바르지 않아요."));
     if(p.sourceUrl){try{const url=new URL(p.sourceUrl);if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw Error()}catch{return fail(t("출처 주소는 http 또는 https 링크를 입력해 주세요."))}}
-    if(typeof p.checkedAt!=='string'||!validDay(p.checkedAt))return fail(t("명소 저장일이 올바르지 않아요."));
+    if(typeof p.checkedAt!=='string'||!validDay(p.checkedAt)||p.checkedAt>today())return fail(t("명소 저장일이 올바르지 않아요."));
     return {id:p.id,regionId:p.regionId,name:p.name.trim(),activityTags:[...p.activityTags],icon:p.icon,sourceUrl:p.sourceUrl,checkedAt:p.checkedAt} as Place;
   });
   const placeMap=new Map([...places,...placeOverrides].map(p=>[p.id,p]));
@@ -56,7 +56,7 @@ export function validateData(value:unknown,regions:Region[],places:Place[]):User
     ids.add(v.id as string);
     if(!regionIds.has(v.regionId as string))return fail(t(`알 수 없는 지역 ID: ${v.regionId}`));
     if((v.note as string).length>500||(v.regionNameSnapshot as string).length>160)return fail(t("기록의 글자 수 제한을 초과했어요."));
-    if(v.visitedOn!==null&&(typeof v.visitedOn!=='string'||!validDay(v.visitedOn)))return fail(t("방문일이 올바르지 않거나 미래 날짜예요."));
+    if(v.visitedOn!==null&&(typeof v.visitedOn!=='string'||!validDay(v.visitedOn)))return fail(t("방문일이 올바르지 않아요."));
     if(!Array.isArray(v.placeIds)||new Set(v.placeIds).size!==v.placeIds.length)return fail(t("명소 목록이 올바르지 않아요."));
     for(const pid of v.placeIds)if(typeof pid!=='string'||placeMap.get(pid)?.regionId!==v.regionId)return fail(t(`명소가 없거나 기록 지역과 달라요: ${pid}`));
     for(const key of ['createdAt','updatedAt'])if(!/^\d{4}-\d{2}-\d{2}T/.test(v[key] as string)||!Number.isFinite(Date.parse(v[key] as string)))return fail(t("기록 시각이 올바르지 않아요."));
