@@ -47,3 +47,5 @@ html[lang=en] .topbar nav>button{font-size:14px}
 .friend-marker .friend-photo,.friend-marker .friend-photo img{opacity:1;filter:none}
 
 .base-name-field{display:block;font-size:13px;color:#4d6b5b;margin-bottom:20px}.base-name-field input{display:block;width:100%;height:48px;margin-top:8px;padding:0 12px;font-size:16px;border:1px solid #d7e2d7;border-radius:10px;background:#fff;color:#294f3e}.friend-marker-label{max-width:180px;white-space:normal;overflow-wrap:anywhere;text-align:center}
+
+.filter-tab-label{display:inline-flex;align-items:baseline;justify-content:center;gap:4px;white-space:nowrap;line-height:1.4}.filter-tab-label small{line-height:inherit}
