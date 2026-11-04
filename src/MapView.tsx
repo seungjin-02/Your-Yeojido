@@ -24,7 +24,7 @@ export default function MapView(props:Props){
  function fit(m:MapInstance,bounds:[[number,number],[number,number]],maxZoom=14,reference=false){
   const mobile=matchMedia('(max-width:767px), (max-width:1023px) and (pointer:coarse)').matches,workspace=host.current?.closest('.workspace');
   const height=m.getContainer().clientHeight,width=m.getContainer().clientWidth,rect=m.getContainer().getBoundingClientRect();
-  const tools=workspace?.querySelector('.map-tools')?.getBoundingClientRect(),sheet=workspace?.querySelector('.region-panel,.travel-group-card,.mobile-overview')?.getBoundingClientRect();
+  const tools=workspace?.querySelector('.map-tools')?.getBoundingClientRect(),sheet=workspace?.querySelector('.region-panel,.travel-group-card')?.getBoundingClientRect();
   const top=mobile?Math.min((tools?tools.bottom-rect.top+12:24)+(reference?76:0),height*(reference?.5:.28)):38;
   const bottom=mobile?Math.min(sheet?rect.bottom-sheet.top+16:24,Math.max(24,height-top-90)):65;
   const side=mobile?20:Math.min(width*.29,350);
