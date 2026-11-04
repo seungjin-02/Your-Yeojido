@@ -1,0 +1,790 @@
+{
+  "NSW": {
+    "title": "항구 도시와 산의 풍경",
+    "summary": "항구 도시와 산의 풍경",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [
+      {
+        "id": "place:au-opera-house",
+        "regionId": "au:lga:17200",
+        "region": "시드니",
+        "name": "시드니 오페라 하우스",
+        "tags": [
+          "건축과 항구"
+        ],
+        "icon": "landmark",
+        "description": "건축과 항구",
+        "sourceUrl": "https://www.visitnsw.com/"
+      },
+      {
+        "id": "place:au-bondi",
+        "regionId": "au:lga:18050",
+        "region": "웨이벌리",
+        "name": "본다이 비치",
+        "tags": [
+          "해변 산책"
+        ],
+        "icon": "waves",
+        "description": "해변 산책",
+        "sourceUrl": "https://www.visitnsw.com/"
+      },
+      {
+        "id": "place:au-manly",
+        "regionId": "au:lga:15150",
+        "region": "맨리",
+        "name": "맨리 해변",
+        "tags": [
+          "바다와 휴식"
+        ],
+        "icon": "waves",
+        "description": "바다와 휴식",
+        "sourceUrl": "https://www.visitnsw.com/"
+      },
+      {
+        "id": "place:au-blue-mountains",
+        "regionId": "au:lga:10900",
+        "region": "블루마운틴",
+        "name": "블루마운틴 에코 포인트",
+        "tags": [
+          "산과 전망"
+        ],
+        "icon": "mountain",
+        "description": "산과 전망",
+        "sourceUrl": "https://www.visitnsw.com/"
+      },
+      {
+        "id": "place:au-byron",
+        "regionId": "au:lga:11350",
+        "region": "바이런",
+        "name": "바이런베이 등대",
+        "tags": [
+          "해안 전망"
+        ],
+        "icon": "landmark",
+        "description": "해안 전망",
+        "sourceUrl": "https://www.visitnsw.com/"
+      },
+      {
+        "id": "place:au-newcastle",
+        "regionId": "au:lga:15900",
+        "region": "뉴캐슬",
+        "name": "뉴캐슬 메모리얼 워크",
+        "tags": [
+          "도시와 해안"
+        ],
+        "icon": "waves",
+        "description": "도시와 해안",
+        "sourceUrl": "https://www.visitnsw.com/"
+      },
+      {
+        "id": "place:au-wollongong",
+        "regionId": "au:lga:18450",
+        "region": "울런공",
+        "name": "울런공 등대",
+        "tags": [
+          "항구 산책"
+        ],
+        "icon": "landmark",
+        "description": "항구 산책",
+        "sourceUrl": "https://www.visitnsw.com/"
+      }
+    ],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  },
+  "VIC": {
+    "title": "문화의 골목과 해안 도로",
+    "summary": "문화의 골목과 해안 도로",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [
+      {
+        "id": "place:au-federation",
+        "regionId": "au:lga:24600",
+        "region": "멜버른",
+        "name": "페더레이션 스퀘어",
+        "tags": [
+          "문화와 건축"
+        ],
+        "icon": "landmark",
+        "description": "문화와 건축",
+        "sourceUrl": "https://www.visitvictoria.com/"
+      },
+      {
+        "id": "place:au-st-kilda",
+        "regionId": "au:lga:25900",
+        "region": "포트 필립",
+        "name": "세인트킬다 비치",
+        "tags": [
+          "해변과 산책"
+        ],
+        "icon": "waves",
+        "description": "해변과 산책",
+        "sourceUrl": "https://www.visitvictoria.com/"
+      },
+      {
+        "id": "place:au-geelong",
+        "regionId": "au:lga:22750",
+        "region": "그레이터 질롱",
+        "name": "질롱 워터프런트",
+        "tags": [
+          "항구와 산책"
+        ],
+        "icon": "waves",
+        "description": "항구와 산책",
+        "sourceUrl": "https://www.visitvictoria.com/"
+      },
+      {
+        "id": "place:au-great-ocean",
+        "regionId": "au:lga:21750",
+        "region": "콜랙 오트웨이",
+        "name": "그레이트 오션 로드 아폴로베이",
+        "tags": [
+          "해안 도로"
+        ],
+        "icon": "waves",
+        "description": "해안 도로",
+        "sourceUrl": "https://www.visitvictoria.com/"
+      },
+      {
+        "id": "place:au-ballarat",
+        "regionId": "au:lga:20570",
+        "region": "밸러랫",
+        "name": "밸러랫 소버린힐",
+        "tags": [
+          "골드러시 역사"
+        ],
+        "icon": "landmark",
+        "description": "골드러시 역사",
+        "sourceUrl": "https://www.visitvictoria.com/"
+      },
+      {
+        "id": "place:au-yarra",
+        "regionId": "au:lga:27450",
+        "region": "야라 레인지스",
+        "name": "야라밸리 힐스빌",
+        "tags": [
+          "마을과 자연"
+        ],
+        "icon": "tree",
+        "description": "마을과 자연",
+        "sourceUrl": "https://www.visitvictoria.com/"
+      }
+    ],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  },
+  "QLD": {
+    "title": "열대 해안과 도시의 여유",
+    "summary": "열대 해안과 도시의 여유",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [
+      {
+        "id": "place:au-south-bank",
+        "regionId": "au:lga:31000",
+        "region": "브리즈번",
+        "name": "브리즈번 사우스뱅크",
+        "tags": [
+          "강변과 문화"
+        ],
+        "icon": "tree",
+        "description": "강변과 문화",
+        "sourceUrl": "https://www.queensland.com/"
+      },
+      {
+        "id": "place:au-gold-coast",
+        "regionId": "au:lga:33430",
+        "region": "골드코스트",
+        "name": "서퍼스 파라다이스",
+        "tags": [
+          "해변과 도시"
+        ],
+        "icon": "waves",
+        "description": "해변과 도시",
+        "sourceUrl": "https://www.queensland.com/"
+      },
+      {
+        "id": "place:au-cairns",
+        "regionId": "au:lga:32070",
+        "region": "케언스",
+        "name": "케언스 에스플러네이드",
+        "tags": [
+          "리프 여행의 출발점"
+        ],
+        "icon": "waves",
+        "description": "리프 여행의 출발점",
+        "sourceUrl": "https://www.queensland.com/"
+      },
+      {
+        "id": "place:au-sunshine",
+        "regionId": "au:lga:36710",
+        "region": "선샤인코스트",
+        "name": "누사 헤즈",
+        "tags": [
+          "해변과 자연"
+        ],
+        "icon": "waves",
+        "description": "해변과 자연",
+        "sourceUrl": "https://www.queensland.com/"
+      },
+      {
+        "id": "place:au-townsville",
+        "regionId": "au:lga:37010",
+        "region": "타운즈빌",
+        "name": "타운즈빌 스트랜드",
+        "tags": [
+          "해안 산책"
+        ],
+        "icon": "waves",
+        "description": "해안 산책",
+        "sourceUrl": "https://www.queensland.com/"
+      }
+    ],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  },
+  "SA": {
+    "title": "시장과 마을, 섬의 풍경",
+    "summary": "시장과 마을, 섬의 풍경",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [
+      {
+        "id": "place:au-adelaide-market",
+        "regionId": "au:lga:40070",
+        "region": "애들레이드",
+        "name": "애들레이드 센트럴 마켓",
+        "tags": [
+          "시장과 미식"
+        ],
+        "icon": "store",
+        "description": "시장과 미식",
+        "sourceUrl": "https://southaustralia.com/"
+      },
+      {
+        "id": "place:au-glenelg",
+        "regionId": "au:lga:42600",
+        "region": "Holdfast Bay",
+        "name": "글레넬그 비치",
+        "tags": [
+          "해변과 일몰"
+        ],
+        "icon": "waves",
+        "description": "해변과 일몰",
+        "sourceUrl": "https://southaustralia.com/"
+      },
+      {
+        "id": "place:au-barossa",
+        "regionId": "au:lga:40310",
+        "region": "바로사",
+        "name": "바로사 타눈다",
+        "tags": [
+          "마을과 미식"
+        ],
+        "icon": "store",
+        "description": "마을과 미식",
+        "sourceUrl": "https://southaustralia.com/"
+      },
+      {
+        "id": "place:au-kangaroo",
+        "regionId": "au:lga:42750",
+        "region": "캥거루섬",
+        "name": "캥거루섬 킹스코트",
+        "tags": [
+          "섬 여행"
+        ],
+        "icon": "tree",
+        "description": "섬 여행",
+        "sourceUrl": "https://southaustralia.com/"
+      }
+    ],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  },
+  "WA": {
+    "title": "퍼스에서 남서부 해안까지",
+    "summary": "퍼스에서 남서부 해안까지",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [
+      {
+        "id": "place:au-kings-park",
+        "regionId": "au:lga:57080",
+        "region": "퍼스",
+        "name": "킹스 파크",
+        "tags": [
+          "도시 공원"
+        ],
+        "icon": "tree",
+        "description": "도시 공원",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-elizabeth-quay",
+        "regionId": "au:lga:57080",
+        "region": "퍼스",
+        "name": "엘리자베스 키",
+        "tags": [
+          "강변 산책"
+        ],
+        "icon": "waves",
+        "description": "강변 산책",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-perth-cultural",
+        "regionId": "au:lga:57080",
+        "region": "퍼스",
+        "name": "퍼스 문화 센터",
+        "tags": [
+          "전시와 문화"
+        ],
+        "icon": "landmark",
+        "description": "전시와 문화",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-fremantle-markets",
+        "regionId": "au:lga:53430",
+        "region": "프리맨틀",
+        "name": "프리맨틀 마켓",
+        "tags": [
+          "시장과 먹거리"
+        ],
+        "icon": "store",
+        "description": "시장과 먹거리",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-fremantle-prison",
+        "regionId": "au:lga:53430",
+        "region": "프리맨틀",
+        "name": "프리맨틀 감옥",
+        "tags": [
+          "역사와 건축"
+        ],
+        "icon": "landmark",
+        "description": "역사와 건축",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-cottesloe-beach",
+        "regionId": "au:lga:52170",
+        "region": "코테슬로",
+        "name": "코테슬로 비치",
+        "tags": [
+          "해변과 일몰"
+        ],
+        "icon": "waves",
+        "description": "해변과 일몰",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-scarborough-beach",
+        "regionId": "au:lga:57910",
+        "region": "스털링",
+        "name": "스카버러 비치",
+        "tags": [
+          "해변 산책"
+        ],
+        "icon": "waves",
+        "description": "해변 산책",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-swan-valley",
+        "regionId": "au:lga:58050",
+        "region": "스완",
+        "name": "스완밸리 길드퍼드",
+        "tags": [
+          "마을과 미식"
+        ],
+        "icon": "store",
+        "description": "마을과 미식",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-hillarys",
+        "regionId": "au:lga:54170",
+        "region": "준달럽",
+        "name": "힐러리스 보트 하버",
+        "tags": [
+          "항구와 바다"
+        ],
+        "icon": "waves",
+        "description": "항구와 바다",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-rockingham",
+        "regionId": "au:lga:57490",
+        "region": "로킹엄",
+        "name": "로킹엄 해안",
+        "tags": [
+          "바다와 휴식"
+        ],
+        "icon": "waves",
+        "description": "바다와 휴식",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-mandurah",
+        "regionId": "au:lga:55110",
+        "region": "맨두라",
+        "name": "맨두라 해안",
+        "tags": [
+          "강변과 산책"
+        ],
+        "icon": "waves",
+        "description": "강변과 산책",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-busselton-jetty",
+        "regionId": "au:lga:51260",
+        "region": "버셀턴",
+        "name": "버셀턴 제티",
+        "tags": [
+          "바다 위 산책"
+        ],
+        "icon": "waves",
+        "description": "바다 위 산책",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-margaret-river",
+        "regionId": "au:lga:50280",
+        "region": "오거스타 마거릿 리버",
+        "name": "마거릿 리버",
+        "tags": [
+          "미식과 마을"
+        ],
+        "icon": "store",
+        "description": "미식과 마을",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-albany",
+        "regionId": "au:lga:50080",
+        "region": "올버니",
+        "name": "올버니 미들턴 비치",
+        "tags": [
+          "남부 해안"
+        ],
+        "icon": "waves",
+        "description": "남부 해안",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-esperance",
+        "regionId": "au:lga:53290",
+        "region": "에스퍼런스",
+        "name": "에스퍼런스 해안",
+        "tags": [
+          "해변 풍경"
+        ],
+        "icon": "waves",
+        "description": "해변 풍경",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-broome",
+        "regionId": "au:lga:50980",
+        "region": "브룸",
+        "name": "브룸 케이블 비치",
+        "tags": [
+          "인도양 일몰"
+        ],
+        "icon": "waves",
+        "description": "인도양 일몰",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-exmouth",
+        "regionId": "au:lga:53360",
+        "region": "엑스머스",
+        "name": "엑스머스",
+        "tags": [
+          "닝갈루 여행의 출발점"
+        ],
+        "icon": "waves",
+        "description": "닝갈루 여행의 출발점",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      },
+      {
+        "id": "place:au-pinnacles",
+        "regionId": "au:lga:52590",
+        "region": "Dandaragan",
+        "name": "피너클스 사막",
+        "tags": [
+          "사막 지형"
+        ],
+        "icon": "mountain",
+        "description": "사막 지형",
+        "sourceUrl": "https://www.westernaustralia.com/"
+      }
+    ],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  },
+  "TAS": {
+    "title": "산과 섬을 천천히 걷기",
+    "summary": "산과 섬을 천천히 걷기",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [
+      {
+        "id": "place:au-salamanca",
+        "regionId": "au:lga:62810",
+        "region": "호바트",
+        "name": "호바트 살라망카",
+        "tags": [
+          "시장과 항구"
+        ],
+        "icon": "store",
+        "description": "시장과 항구",
+        "sourceUrl": "https://www.discovertasmania.com.au/"
+      },
+      {
+        "id": "place:au-cradle",
+        "regionId": "au:lga:63210",
+        "region": "Kentish",
+        "name": "크레이들 마운틴",
+        "tags": [
+          "산과 자연"
+        ],
+        "icon": "mountain",
+        "description": "산과 자연",
+        "sourceUrl": "https://www.discovertasmania.com.au/"
+      },
+      {
+        "id": "place:au-launceston",
+        "regionId": "au:lga:64010",
+        "region": "론서스턴",
+        "name": "론서스턴 캐터랙트 협곡",
+        "tags": [
+          "협곡과 산책"
+        ],
+        "icon": "tree",
+        "description": "협곡과 산책",
+        "sourceUrl": "https://www.discovertasmania.com.au/"
+      },
+      {
+        "id": "place:au-freycinet",
+        "regionId": "au:lga:62410",
+        "region": "Glamorgan/Spring Bay",
+        "name": "프레이시넷 콜스베이",
+        "tags": [
+          "해안과 자연"
+        ],
+        "icon": "waves",
+        "description": "해안과 자연",
+        "sourceUrl": "https://www.discovertasmania.com.au/"
+      }
+    ],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  },
+  "NT": {
+    "title": "레드센터와 북부의 자연",
+    "summary": "레드센터와 북부의 자연",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [
+      {
+        "id": "place:au-darwin",
+        "regionId": "au:lga:71000",
+        "region": "다윈",
+        "name": "다윈 워터프런트",
+        "tags": [
+          "도시와 바다"
+        ],
+        "icon": "waves",
+        "description": "도시와 바다",
+        "sourceUrl": "https://northernterritory.com/"
+      },
+      {
+        "id": "place:au-alice",
+        "regionId": "au:lga:70200",
+        "region": "앨리스스프링스",
+        "name": "앨리스스프링스",
+        "tags": [
+          "레드센터 여행"
+        ],
+        "icon": "mountain",
+        "description": "레드센터 여행",
+        "sourceUrl": "https://northernterritory.com/"
+      },
+      {
+        "id": "place:au-uluru",
+        "regionId": "au:lga:72330",
+        "region": "맥도널",
+        "name": "울루루",
+        "tags": [
+          "대지와 문화"
+        ],
+        "icon": "mountain",
+        "description": "대지와 문화",
+        "sourceUrl": "https://northernterritory.com/"
+      },
+      {
+        "id": "place:au-katherine",
+        "regionId": "au:lga:72200",
+        "region": "캐서린",
+        "name": "캐서린",
+        "tags": [
+          "강과 자연"
+        ],
+        "icon": "tree",
+        "description": "강과 자연",
+        "sourceUrl": "https://northernterritory.com/"
+      }
+    ],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  },
+  "ACT": {
+    "title": "캔버라의 건축과 이야기",
+    "summary": "캔버라의 건축과 이야기",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [
+      {
+        "id": "place:au-national-museum",
+        "regionId": "au:lga:89399",
+        "region": "캔버라·수도 준주",
+        "name": "호주 국립박물관",
+        "tags": [
+          "역사와 문화"
+        ],
+        "icon": "landmark",
+        "description": "역사와 문화",
+        "sourceUrl": "https://visitcanberra.com.au/"
+      },
+      {
+        "id": "place:au-parliament",
+        "regionId": "au:lga:89399",
+        "region": "캔버라·수도 준주",
+        "name": "호주 국회의사당",
+        "tags": [
+          "건축과 정치"
+        ],
+        "icon": "landmark",
+        "description": "건축과 정치",
+        "sourceUrl": "https://visitcanberra.com.au/"
+      }
+    ],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  },
+  "OT": {
+    "title": "호주 외곽 준주 둘러보기",
+    "summary": "호주 외곽 준주 둘러보기",
+    "paragraphs": [
+      "세부 지역별로 나누어 기록하세요."
+    ],
+    "themes": [
+      "자연",
+      "문화",
+      "산책"
+    ],
+    "activities": [
+      {
+        "title": "여행 기록 남기기",
+        "description": "마음에 남은 풍경과 경험을 기록해보세요."
+      }
+    ],
+    "places": [],
+    "tip": "이동 거리와 현지 기상, 공식 방문 안내를 확인하세요."
+  }
+}

@@ -1,0 +1,26 @@
+LGA boundary snapshot: Australian Local Government Areas, 2011.
+Retrieved from https://github.com/thomjoy/aus-lga/blob/master/data/aus_lga.json
+Source commit: f7b10f917cba13635a0643eb0dd5abbf7b8e9457
+SHA256 of upstream file: 6b79eb77b0e0c728930df5325a7c2ade5f8df4f1b9dafe3855f3662889cef2dc
+565 simplified polygons. Historical boundaries: council mergers and renamings since 2011 are not reflected. WGS84 display coordinates. Feature IDs, Korean aliases, label anchors and derived state outlines added.
+
+The MIT License (MIT)
+
+Copyright (c) 2013 Thom Joy
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
