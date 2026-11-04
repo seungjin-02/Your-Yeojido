@@ -18,6 +18,7 @@ export default function MapView(props:Props){
  const language=useLanguage();
  const host=useRef<HTMLDivElement>(null),map=useRef<MapInstance|null>(null),friendMarker=useRef<maplibregl.Marker|null>(null),latest=useRef(props);
  latest.current=props;
+ const lastBaseFocus=useRef(baseFocus);
  const [ready,setReady]=useState(false),[error,setError]=useState('');
  const duration=()=>matchMedia('(prefers-reduced-motion: reduce)').matches?0:450;
  function fit(m:MapInstance,bounds:[[number,number],[number,number]],maxZoom=14,reference=false){
@@ -37,7 +38,7 @@ export default function MapView(props:Props){
   let disposed=false;let m:MapInstance|undefined;const markers:maplibregl.Marker[]=[];let localLabels:maplibregl.Marker[]=[];
   setReady(false);setError('');
   try{
-   m=new maplibregl.Map({container:host.current,style:{version:8,sources:{},layers:[{id:'sea',type:'background',paint:{'background-color':'#e9f3f6'}}]},center:base.coordinates,zoom:9,attributionControl:false,minZoom:2,maxZoom:16,renderWorldCopies:false,pitchWithRotate:false,dragRotate:false,touchPitch:false});
+   m=new maplibregl.Map({container:host.current,style:{version:8,sources:{},layers:[{id:'sea',type:'background',paint:{'background-color':'#e9f3f6'}}]},center:[134,-27],zoom:3,attributionControl:false,minZoom:2,maxZoom:16,renderWorldCopies:false,pitchWithRotate:false,dragRotate:false,touchPitch:false});
    const current=m;map.current=current;current.addControl(new maplibregl.ScaleControl({maxWidth:90,unit:'metric'}),'bottom-right');
    current.on('load',async()=>{try{
     const [res,outline]=await Promise.all([fetch('./data/regions.geojson'),fetch('./data/states.geojson')]);if(!res.ok||!outline.ok)throw Error(t('경계 파일을 불러올 수 없어요.'));
@@ -51,24 +52,24 @@ export default function MapView(props:Props){
     for(const s of states){const el=document.createElement('span');el.className='state-label';el.textContent=language==='en'?s.nameEn:s.name;el.setAttribute('aria-hidden','true');markers.push(new maplibregl.Marker({element:el}).setLngLat(s.center as [number,number]).addTo(current))}
     const updateLabels=()=>{if(disposed)return;const detail=current.getZoom()>=6;markers.forEach(marker=>marker.getElement().style.visibility=detail?'hidden':'visible');localLabels.forEach(marker=>marker.remove());localLabels=[];if(!detail)return;const bounds=current.getBounds(),reference=current.project(latest.current.base.coordinates),occupied=[{left:reference.x-60,right:reference.x+60,top:reference.y-100,bottom:reference.y+10}];for(const r of regions){const point=r.center||[(r.bbox[0]+r.bbox[2])/2,(r.bbox[1]+r.bbox[3])/2] as [number,number];if(!bounds.contains(point))continue;const screen=current.project(point),estimated=[...r.name].reduce((n,c)=>n+(/[가-힣]/.test(c)?11:6.5),0),w=Math.min(130,estimated)+14,h=estimated>130?34:22,box={left:screen.x-w/2,right:screen.x+w/2,top:screen.y-h/2,bottom:screen.y+h/2};if(occupied.some(b=>box.left<b.right&&box.right>b.left&&box.top<b.bottom&&box.bottom>b.top))continue;occupied.push(box);const el=document.createElement('span');el.className='local-region-label';el.textContent=r.name;el.setAttribute('aria-hidden','true');localLabels.push(new maplibregl.Marker({element:el}).setLngLat(point).addTo(current));if(localLabels.length>=80)break;}};
     current.on('moveend',updateLabels);updateLabels();
-    const friend=document.createElement('button');friend.className='friend-marker';friend.type='button';friend.setAttribute('aria-label',t('친구 집 · 나의 기준점'));friend.innerHTML='<span class="friend-photo"><img src="./images/perth-friend.jpg" alt=""/></span><span class="friend-marker-label"></span>';
-    friend.querySelector('.friend-marker-label')!.textContent=t('친구 집');friend.onclick=e=>{e.stopPropagation();latest.current.onEditBase()};friendMarker.current=new maplibregl.Marker({element:friend,anchor:'bottom'}).setLngLat(latest.current.base.coordinates).addTo(current);
+    const friend=document.createElement('button');friend.className='friend-marker';friend.type='button';friend.setAttribute('aria-label',t('안준하 · 나의 기준점'));friend.innerHTML='<span class="friend-photo"><img src="./images/perth-friend.jpg" alt=""/></span><span class="friend-marker-label"></span>';
+    friend.querySelector('.friend-marker-label')!.textContent=t('안준하');friend.onclick=e=>{e.stopPropagation();latest.current.onEditBase()};friendMarker.current=new maplibregl.Marker({element:friend,anchor:'bottom'}).setLngLat(latest.current.base.coordinates).addTo(current);
     let hover:string|undefined;const popup=new maplibregl.Popup({closeButton:false,closeOnClick:false,offset:12,className:'region-tooltip'});
     current.on('mousemove','regions-fill',e=>{if(matchMedia('(pointer:coarse)').matches)return;const id=String(e.features?.[0]?.id||'');if(hover&&hover!==id)current.setFeatureState({source:'regions',id:hover},{hover:false});hover=id;if(!id)return;current.getCanvas().style.cursor='pointer';current.setFeatureState({source:'regions',id},{hover:true});const r=regions.find(r=>r.id===id);if(r)popup.setLngLat(e.lngLat).setText(`${r.fullName} · ${t(latest.current.visited.has(id)?'방문 완료':'미방문')}`).addTo(current)});
     current.on('mouseleave','regions-fill',()=>{if(hover)current.setFeatureState({source:'regions',id:hover},{hover:false});hover=undefined;popup.remove();current.getCanvas().style.cursor=''});
     current.on('click','regions-fill',e=>{popup.remove();const r=regions.find(r=>r.id===String(e.features?.[0]?.id));if(r)latest.current.onSelect(r)});
-    home(current);setReady(true);
+    all(current);setReady(true);
    }catch(e){if(!disposed)setError((e as Error).message)}});
    current.on('error',e=>{if(!disposed&&/WebGL|context|GPU|Worker/i.test(e.error.message))setError(t('이 브라우저에서 지도를 표시할 수 없어요. 지역 검색과 여행 기록은 계속 사용할 수 있어요.'))});
   }catch{setError(t('WebGL 지도를 시작하지 못했어요. 지역 검색으로 여행 기록을 남길 수 있어요.'))}
   let width=host.current.clientWidth,height=host.current.clientHeight;
-  const ro=new ResizeObserver(()=>{const current=map.current;if(!current||!host.current)return;if(width===host.current.clientWidth&&height===host.current.clientHeight)return;width=host.current.clientWidth;height=host.current.clientHeight;current.resize();if(current.getSource('regions')){const focus=latest.current.selected||latest.current.group;if(focus){const [x,y,a,b]=focus.bbox;fit(current,[[x,y],[a,b]])}else home(current)}});ro.observe(host.current);
+  const ro=new ResizeObserver(()=>{const current=map.current;if(!current||!host.current)return;if(width===host.current.clientWidth&&height===host.current.clientHeight)return;width=host.current.clientWidth;height=host.current.clientHeight;current.resize();if(current.getSource('regions')){const focus=latest.current.selected||latest.current.group;if(focus){const [x,y,a,b]=focus.bbox;fit(current,[[x,y],[a,b]])}else all(current)}});ro.observe(host.current);
   return()=>{disposed=true;ro.disconnect();markers.forEach(x=>x.remove());localLabels.forEach(x=>x.remove());friendMarker.current?.remove();friendMarker.current=null;m?.remove();map.current=null};
  },[regions,language]);
  useEffect(()=>{const m=map.current;if(!ready||!m?.getSource('regions'))return;regions.forEach(r=>m.setFeatureState({source:'regions',id:r.id},{selected:selected?.id===r.id,regionColor:regionColors[r.id],muted:(group&&!group.regionIds.includes(r.id))||(filter==='visited'?!visited.has(r.id):filter==='unvisited'?visited.has(r.id):false)}))},[visited,filter,ready,regions,group,selected,regionColors]);
  useEffect(()=>{const m=map.current;if(ready&&m&&selected){const [x,y,a,b]=selected.bbox;fit(m,[[x,y],[a,b]],14)}},[selected,ready,expanded]);
  useEffect(()=>{if(ready&&map.current&&reset>0&&!latest.current.selected&&!latest.current.group)all(map.current)},[reset,ready]);
- useEffect(()=>{if(ready&&map.current&&!latest.current.selected&&!latest.current.group)home(map.current)},[baseFocus,ready]);
+ useEffect(()=>{if(ready&&map.current&&baseFocus!==lastBaseFocus.current){lastBaseFocus.current=baseFocus;home(map.current)}},[baseFocus,ready]);
  useEffect(()=>{friendMarker.current?.setLngLat(base.coordinates)},[base]);
  useEffect(()=>{const m=map.current;if(!ready||!m||!group||selected)return;const [x,y,a,b]=group.bbox;fit(m,[[x,y],[a,b]],10)},[group,selected,ready]);
  return <div className="map-scene" aria-hidden={!active} inert={!active}><div className="map-canvas" ref={host} aria-label={t('호주 여행 지도')}/>{!ready&&!error&&<div className="map-loading">{t('지도를 펼치고 있어요…')}</div>}{error&&<div className="map-error" role="alert">{error}</div>}<div className="map-controls"><button aria-label={t('호주 전체 보기')} title={t('호주 전체 보기')} onClick={()=>{onSelect(null);if(map.current)all(map.current)}}><Maximize size={18}/></button><div><button aria-label={t('지도 확대')} onClick={()=>map.current?.zoomIn({duration:duration()})}><Plus size={21}/></button><button aria-label={t('지도 축소')} onClick={()=>map.current?.zoomOut({duration:duration()})}><Minus size={21}/></button></div></div></div>

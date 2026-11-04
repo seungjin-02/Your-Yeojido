@@ -13,13 +13,13 @@ npm run build
 npx vitest run src/australia.test.ts
 ```
 
-Map geometry, labels and the user-provided friend photograph are served locally. There is no geocoding, paid map API or account requirement. Records, language and the home-base location are stored in this browser. The home-base coordinates and language preference use separate localStorage keys; visit backup exports currently contain visits, places, categories and colours.
+Map geometry, labels and the user-provided friend photograph are served locally. Local region-name lookup works offline. Optional detailed location/address search uses OpenStreetMap Nominatim only when its search button is pressed; no paid API key or account is required. Records, language and the home-base location are stored in this browser. The home-base coordinates and language preference use separate localStorage keys; visit backup exports currently contain visits, places, categories and colours.
 
 ## Map detail and reference point
 
 The map uses **565 LGA polygons from a 2011 snapshot**, including 139 in Western Australia. These are real historical local-government areas, not every modern suburb or postcode. Later council mergers and name changes are not reflected. For example, historical council names around Sydney remain in this snapshot. Read `DATA_SOURCES.md` and `public/data/LICENSE-DATA.txt` before refreshing the dataset.
 
-The initial camera opens around Perth. The original photograph is clipped by CSS to display the left person's face in the marker and home-base card. The default marker is **central Perth (115.8613, -31.9523)**, not an inferred home address. The home-base dialog can store user-supplied coordinates and reset to central Perth. Region distances are approximate great-circle distances to a representative point, not driving distances.
+The initial camera shows all of mainland Australia and Tasmania. The An Junha photo marker remains at the saved home-base coordinates (central Perth by default). The original photograph is clipped by CSS to display the left person's face in the marker and home-base card. The default marker is **central Perth (115.8613, -31.9523)**, not an inferred home address. The home-base dialog can select a named local area in Korean or English, resolve a more detailed Australian location/address using an explicit online search, accept manual coordinates, and reset to central Perth. Selecting a region uses its representative interior point rather than an exact home address. Saving moves the marker and camera; reloading starts with the national overview while preserving the chosen base. Region distances are approximate great-circle distances to a representative point, not driving distances.
 
 Search accepts Korean aliases and official English names in either language, supports state filtering, and initially orders results by distance from the home base. Further results load in batches. State colours and local boundaries remain distinct when zooming out; zooming in reveals local labels with a limit to avoid overcrowding.
 
@@ -40,8 +40,21 @@ PLAYWRIGHT_MODULE=/tmp/yeojido-browser/node_modules/playwright CHROMIUM_PATH=/us
 
 Results and screenshots go to ignored `work/detailed-validation/`. The script covers 320×568, 390×844, 430×932, 667×375, 844×390 and 1440×900: map rendering, language changes and persistence, the photo marker, reference-point editing, bilingual search, bookmarks, visit creation/editing, unchanged personal notes, statistics, achievements, guides and return to the reference point. `TEST_WIDTHS=390` selects a single viewport.
 
-`src/australia.test.ts` covers dataset and guide connections, detailed visits, preserved state-level backups, reference coordinates, distance calculations and localization. Original Korea-specific suites remain in the repository and still require a separate port; the full `npm test` suite is not green. Physical iPhone Safari and Android keyboard behaviour still require device testing. The earlier `scripts/mobile-smoke.cjs` describes the superseded eight-state dataset; use `detailed-smoke.cjs` for current checks.
+`src/australia.test.ts` covers dataset and guide connections, detailed visits, preserved state-level backups, reference coordinates, location-search response validation, distance calculations, 77 achievement definitions and localization. Original Korea-specific suites remain in the repository and still require a separate port; the full `npm test` suite is not green. Physical iPhone Safari and Android keyboard behaviour still require device testing. The earlier `scripts/mobile-smoke.cjs` describes the superseded eight-state dataset; use `detailed-smoke.cjs` for current checks.
 
 ## GitHub Pages
 
 The GitHub Actions workflow builds with the repository-specific base path and deploys the static site using the official Pages actions. In the repository's **Settings → Pages**, choose **GitHub Actions** as the source. Pushes to `main` then run the Australian data validation, current Australia test suite, production build and deployment. The workflow can also be started with **Actions → Build and deploy GitHub Pages → Run workflow**.
+
+## Travel postcards and passport stamps
+
+My places uses postcode-style travel cards with local notes, recent visit date, repeat count, categories and direct actions for classification, recording and map selection. Achievements use a travel-passport layout with 77 collectible stamps, progress, completion filtering, search and sorting. The 24 additional stamps cover named Perth areas, state exploration, east/west and north/south visits, consecutive travel dates, longer notes, personal places and map coverage. Progress recalculates from current records; broad legacy state visits never earn local-area stamps.
+
+Additional browser checks:
+
+```sh
+PLAYWRIGHT_MODULE=/tmp/yeojido-browser/node_modules/playwright node scripts/base-search-smoke.cjs
+PLAYWRIGHT_MODULE=/tmp/yeojido-browser/node_modules/playwright node scripts/journey-smoke.cjs
+```
+
+Both cover 320×568, 390×844, 667×375 and 1440×900. The detailed address provider is mocked in the deterministic browser checks to cover successful results, unavailable service and country filtering; these checks do not establish live Nominatim availability. Typing local region names sends no requests; only the explicit detailed-search button sends the entered query to that service. Results are approximate and should be checked before saving. Region metadata, manual coordinates and existing saved bases remain usable without that service.

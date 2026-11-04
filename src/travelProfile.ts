@@ -39,6 +39,12 @@ export function getAchievements(data:UserData,regions:Region[]):Achievement[]{
   const most=Math.max(0,...Object.values(counts)),groups=regions.length?createTravelGroups(regions):[];
   const completeGroups=groups.filter(g=>g.regionIds.every(id=>ids.has(id))).length;
   const notes=records.filter(r=>r.note.trim()).length,customPlaces=[...places].filter(id=>id.startsWith('custom:')).length;
+  const visitedStates=new Set(regions.filter(r=>ids.has(r.id)).map(r=>r.provinceId));
+  const stateAreas=(state:string)=>regions.filter(r=>r.provinceId===state&&ids.has(r.id)).length;
+  const capitalNames=new Set(['Perth','Sydney','Melbourne','Brisbane','Adelaide','Hobart','Darwin','Unincorporated ACT']);
+  const capitals=regions.filter(r=>capitalNames.has(r.nameEn||r.name)&&ids.has(r.id)).length;
+  let consecutive=0,run=0,previous=-Infinity;
+  for(const day of [...days].sort()){const stamp=Date.parse(day+'T00:00:00Z');run=stamp-previous===86400000?run+1:1;consecutive=Math.max(consecutive,run);previous=stamp}
   type Definition=[string,string,string,number,number,Achievement['icon'],AchievementGroup];
   const defs:Definition[]=[
     ['first','첫 발걸음','방문 기록 1개 남기기',records.length,1,'footprints','탐방'],
@@ -86,6 +92,32 @@ export function getAchievements(data:UserData,regions:Region[]):Achievement[]{
     ['group','여행권 한 바퀴','한 여행권의 모든 도시·지역 방문',completeGroups,1,'compass','여행권'],
     ['groups-3','여행권을 잇는 길','서로 다른 여행권 세 곳 완주',completeGroups,3,'compass','여행권'],
   ];
+  defs.push(
+    ['perth-first','퍼스의 첫 페이지','퍼스 지역에 방문 기록 남기기',Number(ids.has('au:lga:57080')),1,'footprints','탐방'],
+    ['perth-harbours','도시에서 항구까지','퍼스와 프리맨틀 모두 방문',Number(ids.has('au:lga:57080'))+Number(ids.has('au:lga:53430')),2,'compass','여행권'],
+    ['perth-coast','퍼스의 세 가지 표정','퍼스·프리맨틀·코테슬로 모두 방문',['au:lga:57080','au:lga:53430','au:lga:52170'].filter(id=>ids.has(id)).length,3,'island','여행권'],
+    ['wa-5','서호주의 작은 발견','웨스턴오스트레일리아의 서로 다른 지역 5곳 방문',stateAreas('WA'),5,'map','여행권'],
+    ['wa-15','서호주를 천천히','웨스턴오스트레일리아의 서로 다른 지역 15곳 방문',stateAreas('WA'),15,'map','여행권'],
+    ['wa-30','서호주 여행 아틀라스','웨스턴오스트레일리아의 서로 다른 지역 30곳 방문',stateAreas('WA'),30,'compass','여행권'],
+    ['nsw-5','뉴사우스웨일스 산책','뉴사우스웨일스의 서로 다른 지역 5곳 방문',stateAreas('NSW'),5,'map','여행권'],
+    ['vic-5','빅토리아의 다섯 장면','빅토리아의 서로 다른 지역 5곳 방문',stateAreas('VIC'),5,'map','여행권'],
+    ['qld-5','퀸즐랜드의 햇살','퀸즐랜드의 서로 다른 지역 5곳 방문',stateAreas('QLD'),5,'island','여행권'],
+    ['sa-3','남호주의 새로운 길','사우스오스트레일리아의 서로 다른 지역 3곳 방문',stateAreas('SA'),3,'compass','여행권'],
+    ['tas-3','섬의 세 가지 기억','태즈메이니아의 서로 다른 지역 3곳 방문',stateAreas('TAS'),3,'island','여행권'],
+    ['nt-3','북부의 넓은 하늘','노던테리토리의 서로 다른 지역 3곳 방문',stateAreas('NT'),3,'compass','여행권'],
+    ['east-west','동쪽과 서쪽을 잇다','서호주와 동부 주(NSW·VIC·QLD 중 하나) 방문',Number(visitedStates.has('WA'))+Number(['NSW','VIC','QLD'].some(id=>visitedStates.has(id))),2,'compass','탐방'],
+    ['north-south','북쪽에서 남쪽까지','노던테리토리와 태즈메이니아 모두 방문',Number(visitedStates.has('NT'))+Number(visitedStates.has('TAS')),2,'compass','탐방'],
+    ['capitals-3','도시마다 다른 이야기','주요 도시권 3곳 방문(퍼스·시드니·멜버른·브리즈번·애들레이드·호바트·다윈·ACT)',capitals,3,'place','탐방'],
+    ['consecutive-2','내일도 여행 중','서로 이어지는 이틀에 방문 기록 남기기',consecutive,2,'calendar','계절과 시간'],
+    ['consecutive-3','사흘의 여행 일기','서로 이어지는 사흘에 방문 기록 남기기',consecutive,3,'calendar','계절과 시간'],
+    ['travel-days-10','열 번의 여행하는 날','서로 다른 날짜 10일에 방문 기록 남기기',days.length,10,'calendar','계절과 시간'],
+    ['long-notes-3','오래 간직할 이야기','100자 이상 메모가 있는 방문 기록 3개',records.filter(r=>r.note.trim().length>=100).length,3,'footprints','명소와 기록'],
+    ['custom-places-10','나만의 숨은 장소들','직접 추가한 서로 다른 명소 10곳 방문 기록',customPlaces,10,'place','명소와 기록'],
+    ['bookmarks-15','다음 여행 위시리스트','서로 다른 명소 15곳 북마크',data.bookmarkedPlaceIds.length,15,'heart','명소와 기록'],
+    ['classified-10','열 가지 여행의 이유','서로 다른 지역 10곳에 분류 붙이기',classified,10,'heart','취향'],
+    ['coverage-10','호주의 열 번째 조각','전체 세부 지역의 10% 이상 방문',ids.size,Math.max(1,Math.ceil(regions.length*.1)),'map','탐방'],
+    ['coverage-25','호주 지도의 사분의 일','전체 세부 지역의 25% 이상 방문',ids.size,Math.max(1,Math.ceil(regions.length*.25)),'map','탐방'],
+  );
   for(const g of groups)defs.push([`group:${g.id}`,`${g.name}의 발자국`,`${g.name} 방문`,g.regionIds.filter(id=>ids.has(id)).length,g.regionIds.length,'compass','여행권']);
   return defs.map(([id,name,description,current,target,icon,group])=>({id,name:t(name),description:t(description),current,target,icon,group,achieved:current>=target}));
 }
