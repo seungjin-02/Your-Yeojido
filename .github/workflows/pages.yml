@@ -52,6 +52,19 @@ jobs:
     steps:
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - name: Clear stalled Pages deployment from filter alignment release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status=$(curl --silent --show-error --output /tmp/pages-cancel.json --write-out '%{http_code}' \
+            --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/deployments/63950a9fa3d513af88329cf43edcb28d48c21ca4/cancel")
+          case "$status" in
+            200|202|204|404|409) echo "Previous deployment cleanup: HTTP $status" ;;
+            *) cat /tmp/pages-cancel.json; exit 1 ;;
+          esac
       - name: Deploy site
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
