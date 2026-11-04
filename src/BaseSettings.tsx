@@ -2,13 +2,14 @@ import {t} from './i18n';
 import {useEffect,useMemo,useRef,useState} from 'react';
 import {Search,MapPin,Check} from 'lucide-react';
 import Modal from './Modal';
-import {DEFAULT_BASE,baseFromRegion,homeBaseLabel} from './homeBase';
+import {DEFAULT_BASE,baseFromRegion,homeBaseLabel,homeBaseName} from './homeBase';
 import type {HomeBase} from './homeBase';
 import type {Region} from './types';
 import {baseFromAddress,searchAustralianAddresses} from './geocoding';
 import type {AddressResult} from './geocoding';
 export function FriendPhoto(){return <span className="friend-photo"><img src="./images/perth-friend.jpg" alt={t('안준하의 얼굴')}/></span>}
 export default function BaseSettings({base,regions,onClose,onSave}:{base:HomeBase;regions:Region[];onClose:()=>void;onSave:(base:HomeBase)=>void}){
+ const [name,setName]=useState(homeBaseName(base));
  const [draft,setDraft]=useState(base),[lng,setLng]=useState(String(base.coordinates[0])),[lat,setLat]=useState(String(base.coordinates[1])),[error,setError]=useState('');
  const [query,setQuery]=useState(''),[addresses,setAddresses]=useState<AddressResult[]>([]),[searchError,setSearchError]=useState(''),[searched,setSearched]=useState(false),[searching,setSearching]=useState(false);
  const request=useRef<AbortController|null>(null),lastRequest=useRef(0),mounted=useRef(false);
@@ -26,8 +27,9 @@ export default function BaseSettings({base,regions,onClose,onSave}:{base:HomeBas
   finally{clearTimeout(timeout);if(mounted.current&&request.current===controller)setSearching(false)}
  }
  function changeQuery(value:string){request.current?.abort();request.current=null;setSearching(false);setQuery(value);setAddresses([]);setSearched(false);setSearchError('');}
- return <Modal title={t('안준하 · 나의 기준점')} onClose={onClose}>
-  <div className="base-profile"><FriendPhoto/><div><h3>{t('안준하')}</h3><p>{t('지역명을 검색해 여행의 기준점을 정하세요.')}</p></div></div>
+ return <Modal title={t('기준점 위치 설정')} onClose={onClose}>
+  <div className="base-profile"><FriendPhoto/><div><h3>{name.trim()||homeBaseName(base)}</h3><p>{t('지역명을 검색해 여행의 기준점을 정하세요.')}</p></div></div>
+  <label className="base-name-field" htmlFor="base-display-name">{t('표시 이름')}<input id="base-display-name" maxLength={60} value={name} onChange={e=>setName(e.target.value)}/></label>
   <form className="base-location-search" onSubmit={e=>{e.preventDefault();void search()}}>
    <label htmlFor="base-region-query">{t('기준점 지역·주소 검색')}</label>
    <div className="base-search-field"><Search size={19}/><input id="base-region-query" maxLength={200} value={query} placeholder={t('예: 프리맨틀, Cottesloe, Perth의 상세 주소')} onChange={e=>changeQuery(e.target.value)}/></div>
@@ -39,7 +41,7 @@ export default function BaseSettings({base,regions,onClose,onSave}:{base:HomeBas
    <a className="geocoding-attribution" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a>
   </form>
   <div className="base-selected-location" role="status"><strong>{t('선택한 기준점')}</strong><span>{homeBaseLabel(draft)}</span><small>{draft.source==='region'?t('지역의 대표 지점이에요. 정확한 집 위치는 상세 주소나 좌표로 지정하세요.'):draft.source==='address'?t('검색 서비스가 제공한 위치예요. 저장 전에 위치를 확인하세요.'):draft.approximate?t('퍼스 중심 · 임시 위치'):t('내가 설정한 위치')}</small></div>
-  <form onSubmit={e=>{e.preventDefault();try{if(!lng.trim()||!lat.trim())throw Error(t('위도와 경도를 입력해 주세요.'));onSave({...draft,coordinates:[Number(lng),Number(lat)]});onClose()}catch(e){setError((e as Error).message)}}}>
+  <form onSubmit={e=>{e.preventDefault();try{if(!lng.trim()||!lat.trim())throw Error(t('위도와 경도를 입력해 주세요.'));if(!name.trim())throw Error(t('표시 이름을 입력해 주세요.'));onSave({...draft,name:name.trim(),coordinates:[Number(lng),Number(lat)]});onClose()}catch(e){setError((e as Error).message)}}}>
    <details className="base-manual-coordinates"><summary>{t('좌표 직접 입력')}</summary><div className="base-coordinate-fields"><label>{t('경도')}<input type="number" onInvalid={e=>e.currentTarget.closest('details')?.setAttribute('open','')} step="any" min={-180} max={180} required value={lng} onChange={e=>editCoordinate('lng',e.target.value)}/></label><label>{t('위도')}<input type="number" onInvalid={e=>e.currentTarget.closest('details')?.setAttribute('open','')} step="any" min={-85} max={85} required value={lat} onChange={e=>editCoordinate('lat',e.target.value)}/></label></div></details>
    <p className="profile-help">{t('선택한 기준점은 이 브라우저에 저장돼요. 거리는 도로 경로가 아닌 직선거리예요.')}</p>
    <button type="button" className="text-button" onClick={()=>choose(DEFAULT_BASE)}>{t('퍼스 중심으로 초기화')}</button>
