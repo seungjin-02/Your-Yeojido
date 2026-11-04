@@ -1,3 +1,4 @@
+import MobileIntro from './MobileIntro';
 import {useEffect,useMemo,useRef,useState} from 'react';
 import type {FormEvent} from 'react';
 import {MapPin,Map as MapIcon,BookOpen,Plus,MoreHorizontal,Search,X,ArrowUpRight,ArrowRight,Check,Bookmark,CalendarDays,Coffee,Waves,Landmark,Trees,Mountain,Store,Download,Upload,Info,ShieldCheck,ChevronDown,ChevronUp,Pencil,Trash2,Footprints,Lock,ChevronRight,Route,Palette,Tags,Trophy,SlidersHorizontal,ChartNoAxesCombined,ArrowLeft} from 'lucide-react';
@@ -113,6 +114,7 @@ export default function App(){
  {guideGroup&&<TravelGuideView group={guideGroup} regions={regions} onClose={()=>setGuideGroup(null)} onRegion={r=>{setGuideGroup(null);choose(r)}} onRecord={(r,pid)=>{setGuideGroup(null);choose(r);if(data.hiddenPlaceIds.includes(pid)){setManagingPlaces(true);setToast(t("내 목록에서 삭제한 명소예요. 명소 관리에서 복원한 뒤 기록해 주세요."))}else add(r,undefined,pid)}}/>}
  {developerContact&&<DeveloperContact onClose={()=>setDeveloperContact(false)}/>}
  {info&&<Modal title={t("지도와 여행 정보")} onClose={()=>setInfo(false)} wide><div className="source-copy"><h3>{t("실제 경계 위에 남기는 발자국")}</h3><p>{t("실제 지방정부 구역 565개를 표시합니다. 2011년 경계 스냅샷으로 이후 통합·명칭 변경은 반영하지 않습니다.")}</p><p>{t("여행 단위 ")}<strong>{regions.length}{t("개 세부 구역")}</strong>{t(" 좌표계 WGS84 · 개별 LGA 단위로 방문을 기록합니다.")}</p><div className="source-links"><a href="https://github.com/thomjoy/aus-lga" target="_blank" rel="noreferrer">{t("경계 원본")}<ArrowUpRight size={14}/></a><a href="./data/LICENSE-DATA.txt" target="_blank" rel="noreferrer">{t("데이터 이용 조건")}<ArrowUpRight size={14}/></a></div><h3>{t("천천히 채워가는 여행 안내")}</h3><p>{t("주·준주별 여행 안내와 다양한 기본 명소를 제공해요. 각 지역에 나만의 명소를 추가할 수 있어요.")}</p><details><summary>{t("명소별 정보 출처")}</summary>{basePlaces.map(p=><a className="place-source" key={p.id} href={p.sourceUrl} target="_blank" rel="noreferrer">{t(p.name)}<ArrowUpRight size={13}/></a>)}</details><h3>{t("내 기록의 보관")}</h3><p>{t("계정이나 서버 없이 이 브라우저의 localStorage에 저장합니다. 다른 기기와 동기화되지 않으며, 브라우저 데이터를 지우면 기록이 사라집니다. JSON 내보내기로 백업해 주세요. 여러 탭의 변경은 반영하지만 완전한 동시 저장은 보장하지 않습니다.")}</p></div></Modal>}
+ <MobileIntro/>
  {toast&&<div className="toast" role="status"><Check size={17}/>{t(toast)}<button aria-label={t("알림 닫기")} onClick={()=>setToast('')}><X size={15}/></button></div>}
  </div>
 }
