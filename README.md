@@ -65,4 +65,10 @@ Visit dates accept valid past and future calendar dates; there is no today-based
 
 `PLAYWRIGHT_MODULE=/tmp/yeojido-browser/node_modules/playwright node scripts/date-stats-smoke.cjs` checks future/past saves, leap dates, year selection, editing, reload persistence and translated month labels at four viewport sizes.
 
-The reference-point toolbar retains its location subtitle and uses the shorter “기준점” label. The photo marker keeps its strong contrast at a compact size (52px on phones, 56px on desktop). Map panning is bounded around Australia, rather than exposing most of the world to the west. Boundary attribution is available from the More menu rather than as a map overlay.
+The reference-point toolbar uses a compact single-line “기준점” label; location details are available in its settings dialog. The photo marker keeps its strong contrast at a compact size (52px on phones, 56px on desktop). Map panning is bounded around Australia, rather than exposing most of the world to the west. Boundary attribution is available from the More menu rather than as a map overlay.
+
+## Mobile search with the keyboard open
+
+Search stays full-width when a phone keyboard reduces viewport height. The short landscape toolbar row is limited to widths of at least 600px, and active mobile map search uses a dedicated full-width layout even in landscape. Results scroll within the visible viewport; filters, map tools and bottom navigation return when search is closed or a result is selected. The Cancel control and Escape key both leave search mode.
+
+`PLAYWRIGHT_MODULE=/tmp/yeojido-browser/node_modules/playwright node scripts/search-keyboard-smoke.cjs` covers resized Android-style viewports, simulated Safari visual viewports, result selection, cancelling and desktop navigation. Physical Kakao in-app browser testing remains separate.

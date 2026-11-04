@@ -29,3 +29,9 @@ The original Korea-specific test suites still use Korean region IDs and fixtures
 - 22 current Australia tests pass, including unrestricted valid past/future dates, leap-date rejection, backup round trips, recorded year enumeration, monthly totals and the most-recently-updated-record default year.
 - The date/statistics browser flow passes at 320×568, 390×844, 667×375 and 1440×900. It creates a 2040 visit and a 2010 visit, changes the year selector, edits the future visit into 2099 and verifies persistence after reload and Korean/English switching.
 - Reference marker size is reduced while opacity and label contrast remain strong. Panning bounds use longitudes 88–180 (centred around Australia at 134°E); the national initial view and saved reference coordinates are retained.
+
+## Keyboard search layout
+
+`search-keyboard-smoke.cjs` passes for 320×568 → 320×300, 390×844 → 390×360, 430×932 → 430×400 and 667×375 → 667×260. Search and result widths remain equal to the viewport minus 32px gutters; results stay above the simulated keyboard. Cancellation and selection restore navigation, and the 1440×900 desktop behaviour remains intact. The portrait cases additionally exercise a reduced VisualViewport without resizing the layout viewport. Browser checks emulate keyboard geometry rather than a physical Kakao keyboard.
+
+The reference button now contains only its photograph and the “기준점” label, with the location subtitle removed and the extra space reduced. Location details and editing remain available in the settings dialog.
