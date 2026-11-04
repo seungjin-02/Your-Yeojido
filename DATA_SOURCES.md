@@ -23,3 +23,7 @@ Source links point to each state/territory tourism authority: Western Australia,
 ## Languages
 
 `src/data/en.json` contains English UI strings and names. `src/i18n.ts` supplies a subscribed language preference and template translation. Personal notes and custom names are kept as entered. Korean place aliases are editorial transliterations; official English names are available in both search modes.
+
+## Developer contact image
+
+`public/images/developer-contact.jpg` is the additional photograph supplied in this conversation. It is stored unchanged and shown without cropping in the developer-contact dialog, alongside the requested Korean copy. This is a presentation-only contact screen; no DM account, external messaging integration or automatic submission has been configured. The map/data information remains accessible through a link in this dialog.
