@@ -2,6 +2,29 @@
 
 A React travel atlas based on `seungjin-02/My-Yeojido`, with 565 selectable Australian local-government areas, 50 starter places, Korean/English UI and a personal Perth home base. Mobile uses a central record action, expandable map controls, bottom sheets, safe-area spacing and keyboard-aware forms.
 
+## Cloudflare Pages, installable PWA, and optional account sync
+
+The website can be installed from the browser without an APK. Installation instructions are in the More menu. A service worker caches bundled map files for offline reopening; an update is applied only when the user requests it. Supabase email-code login and revision-checked synchronization are optional: without public project configuration, the existing local app still works. Account scopes preserve guest records and prevent silent cross-account imports. Conflicting device edits require an explicit choice and download a recovery backup.
+
+Follow [the Korean setup guide](docs/CLOUDFLARE_PWA_SETUP.ko.md) for private-GitHub → Cloudflare Pages deployment, domain migration backups, installation, and later Supabase setup. No Cloudflare/Supabase account has been connected, and repository visibility has not been changed. No APK is included.
+
+```sh
+npx vitest run src/australia.test.ts src/sync.test.ts src/syncStorage.test.ts src/syncDatabase.test.ts
+npm run build -- --base=/
+npm run preview
+# With Playwright installed externally as below:
+node scripts/pwa-smoke.cjs
+```
+
+For the two-browser sync smoke test, start Vite in a separate shell with a mock configuration:
+
+```sh
+VITE_SUPABASE_URL=https://sync-test.supabase.co VITE_SUPABASE_PUBLISHABLE_KEY=test-public-key npm run dev -- --port 5174
+node scripts/sync-smoke.cjs
+```
+
+The smoke test intercepts all mock project requests locally; it does not contact a real Supabase project. SQL tests execute the actual migration in PGlite PostgreSQL and verify RLS, denied direct writes, stale revisions, and authentication changes.
+
 ## Develop
 
 Node 24 (`.node-version`).

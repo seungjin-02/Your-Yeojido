@@ -12,4 +12,5 @@ import './journey.css';
 import './stats.css';
 import './contact.css';
 import './intro.css';
+import './account.css';
 createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);

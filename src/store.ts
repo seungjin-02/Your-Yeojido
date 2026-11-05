@@ -96,5 +96,5 @@ export function parseBackup(raw:string,regions:Region[],places:Place[]){if(new B
 export const visitedRegions=(records:VisitRecord[])=>new Set(records.map(r=>r.regionId));
 export const visitedPlaces=(records:VisitRecord[])=>new Set(records.flatMap(r=>r.placeIds));
 export const sortedRecords=(records:VisitRecord[])=>[...records].sort((a,b)=>a.visitedOn&&b.visitedOn?b.visitedOn.localeCompare(a.visitedOn):a.visitedOn?-1:b.visitedOn?1:b.createdAt.localeCompare(a.createdAt));
-export function saveAtomic(data:UserData,expectedRaw:string|null){if(localStorage.getItem(KEY)!==expectedRaw)throw Error(t("다른 탭에서 기록이 변경됐어요. 입력 내용은 유지됩니다. 최신 기록 확인 후 다시 열어 주세요."));const raw=JSON.stringify(data);localStorage.setItem(KEY,raw);return raw;}
+export function saveAtomic(data:UserData,expectedRaw:string|null){if(localStorage.getItem(KEY)!==expectedRaw)throw Error(t("다른 탭에서 기록이 변경됐어요. 입력 내용은 유지됩니다. 최신 기록 확인 후 다시 열어 주세요."));const raw=JSON.stringify(data);localStorage.setItem(KEY,raw);if(typeof window!=='undefined')window.dispatchEvent(new Event('footprint:local-change'));return raw;}
 export function download(name:string,raw:string){const url=URL.createObjectURL(new Blob([raw],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
